@@ -13,7 +13,7 @@ import { addTask } from './commands/addTask.js';
 //Checks whether existing task file exist
 const taskFileExists = fs.existsSync('./data/data.json');
 if (!taskFileExists) {
-    fs.writeFileSync('./data/data.json', '', (err) => {
+    fs.writeFileSync('./data/data.json', '[]', (err) => {
         if(err) throw err;
     });
 
@@ -61,11 +61,17 @@ program
                     } else {
                         const task = args.join(' ');
                         addTask(task);
-                        console.log(chalk.bgBlue("Task added"));
                     }
                     break;
                 case 'help':
-                    console.log("bunch of help commands will appear here");
+                    console.log(`
+exit............................Exits the application
+list............................Lists all the available tasks
+add <task description>..........Adds a task to the list
+complete <id>...................Marks the task as complete
+update <id> <task description>..Overwrites the task with a new description
+delete <id>.....................Deletes the task  
+                        `);
                     break;
                 default:
                     console.log(`Command not recognized: ${command}`);
@@ -75,7 +81,7 @@ program
             rl.prompt();
 
         }).on('close', ()=> {
-            console.log('Exiting interactive mode...');
+            console.log(chalk.bgRed("Exiting..."));
             process.exit(0);
         });
     });
