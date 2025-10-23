@@ -3,17 +3,15 @@ import chalk from 'chalk';
 
 const dataPath = "./data/data.json";
 
-let taskId = 0;
-
 /**
  * Adds new task to the data.json file
  * @param {string} description The description of the task to add
  */  
+
 function addTask(description) {
-    taskId++;
     let tasks = [];
 
-    //Checks whether the file exists if it does it transfers it into a object in an array
+    //Checks whether the file exists if it does transfers it into a object in an array
     try {
         const fileContent = fs.readFileSync(dataPath, 'utf-8');
 
@@ -25,9 +23,9 @@ function addTask(description) {
 
     //Creates a new task object to be added to the array
     const newTask = {
-        id: tasks.length > 0 ? tasks[tasks.length - 1].id - 1 : 1,
+        id: tasks.length > 0 ? tasks[tasks.length - 1].id + 1 : 0, //Handles id generation
         taskDescription: description,
-        completed: false
+        status: false
     }
     tasks.push(newTask);
 

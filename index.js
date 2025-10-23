@@ -9,6 +9,7 @@ import readline from 'readline';
 
 //Program functions
 import { addTask } from './commands/addTask.js';
+import { completeTask } from './commands/completeTask.js';
 
 //Checks whether existing task file exist
 const taskFileExists = fs.existsSync('./data/data.json');
@@ -40,8 +41,6 @@ program
 
         rl.prompt();
 
-        
-
         //listen for the user input
         rl.on('line', (line) => {
             const parts = line.trim().split(' ');
@@ -63,6 +62,14 @@ program
                         addTask(task);
                     }
                     break;
+                case 'update-status':
+                    if (args.length === 0) {
+                        console.log("example: update-status <id>")
+                    } else {
+                        const task = args.join(' ');
+                        completeTask(task);
+                    }
+                    break;
                 case 'help':
                     console.log(`
 exit............................Exits the application
@@ -81,7 +88,7 @@ delete <id>.....................Deletes the task
             rl.prompt();
 
         }).on('close', ()=> {
-            console.log(chalk.bgRed("Exiting..."));
+            console.log(chalk.bgRed("\nExiting...") + chalk.blue(" See you soon!"));
             process.exit(0);
         });
     });
@@ -91,3 +98,4 @@ delete <id>.....................Deletes the task
 program.parse(process.argv);
 
 export { fs };
+export { chalk };
