@@ -13,6 +13,7 @@ import { completeTask } from './commands/completeTask.js';
 import { listTasks } from './commands/listTasks.js';
 import { deleteTask } from './commands/deleteTask.js';
 import { updateTask } from './commands/updateTask.js';
+import { filteredTask } from './commands/filteredTask.js';
 
 //Checks whether existing task file exist
 const taskFileExists = fs.existsSync('./data/data.json');
@@ -89,6 +90,14 @@ program
                         updateTask(parseInt(args[0]), prompt);
                     }
                     break;
+                case 'filter':
+                    if(args.length === 0) {
+                        console.log("example: filter done/undone");
+                    } else {
+                        const task = args.join(' ');
+                        filteredTask(task);
+                    }
+                    break;
                 case 'help':
                     console.log(`
 exit............................Exits the application
@@ -96,6 +105,7 @@ list............................Lists all the available tasks
 add <task description>..........Adds a task to the list
 update-status <id>...................Marks the task as complete
 update <id> <task description>..Overwrites the task with a new description
+filter <status>,................Displays filtered results
 delete <id>.....................Deletes the task  
                         `);
                     break;

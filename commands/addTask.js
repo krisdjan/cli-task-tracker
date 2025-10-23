@@ -1,6 +1,7 @@
 import { fs } from '../index.js';
 import chalk from 'chalk';
 
+
 const dataPath = "./data/data.json";
 
 /**
@@ -17,7 +18,7 @@ function addTask(description) {
 
         tasks = JSON.parse(fileContent);
     } catch (error) {
-        console.log(chalk.bgGray("File wasn't found, creating a new one.."));
+        throw error;
         tasks = [];
     }
 
@@ -25,7 +26,8 @@ function addTask(description) {
     const newTask = {
         id: tasks.length > 0 ? tasks[tasks.length - 1].id + 1 : 0, //Handles id generation
         taskDescription: description,
-        status: false
+        status: false,
+        updated: getDate()
     }
     tasks.push(newTask);
 
@@ -38,4 +40,13 @@ function addTask(description) {
     
 }
 
+function getDate() {
+    const date = new Date();
+    const timestamp = date.toTimeString().slice(0, 9);
+    const dayOfMonth = date.getDate() + "." + date.getMonth() + "." + date.getFullYear();
+    return timestamp + "| " + dayOfMonth;
+    
+}
+
 export { addTask };
+export { getDate };
