@@ -1,17 +1,12 @@
 [
   {
-    "id": 1,
-    "taskDescription": "too koju piima",
-    "completed": false
+    "id": 2,
+    "taskDescription": "mine koju",
+    "status": true
   },
   {
-    "id": 0,
-    "taskDescription": "leia endale töö",
-    "completed": false
-  },
-  {
-    "id": -1,
-    "taskDescription": "papa ja mama",
-    "completed": false
+    "id": 3,
+    "taskDescription": "too piima",
+    "status": false
   }
 ]

@@ -10,6 +10,7 @@ import readline from 'readline';
 //Program functions
 import { addTask } from './commands/addTask.js';
 import { completeTask } from './commands/completeTask.js';
+import { listTasks } from './commands/listTasks.js';
 
 //Checks whether existing task file exist
 const taskFileExists = fs.existsSync('./data/data.json');
@@ -52,7 +53,7 @@ program
                     rl.close();
                     break;
                 case 'list':
-                    console.log("listing tasks:......");
+                    listTasks();
                     break;
                 case 'add':
                     if (args.length === 0) {

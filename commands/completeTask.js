@@ -12,36 +12,38 @@ const completeTask=(taskID)=> {
         //Parsing file to an array
         const fileContent = fs.readFileSync(dataPath, 'utf-8');
         tasks = JSON.parse(fileContent);
-
     } catch (error) {
-
         console.log("something went wrong");
         console.log(error);
     }
-    //Searches through each element to find matching id
+    
     tasks.forEach(element => {
+        //Searches through each element to find matching id
         if (element.id == taskID) {
             found = true;
-
+            //assigns updated values
             if(element.status == true) {
                 element.status = false;
             } else if (element.status == false) { 
                 element.status = true;
             }
+
             updatedTask = element.taskDescription;
             updatedStatus = element.status;
         }
     });
 
-    const updatedFileContent = JSON.stringify(tasks, null, 2);
-    fs.writeFileSync(dataPath, updatedFileContent);
-
-    if(found) {
-        console.log("updated task : " + chalk.bgBlue(updatedTask) + " to " + chalk.bgBlue(updatedStatus));
+    if (found) {
+        let output = "marked task " + chalk.blue(updatedTask) + " as ";
+        updatedStatus ? output += chalk.green('done') : output += chalk.red('undone');
+        //Handles writing an array back to JSON file 
+        const updatedFileContent = JSON.stringify(tasks, null, 2);
+        fs.writeFileSync(dataPath, updatedFileContent);
+        console.log(output);
     } else {
         console.log(chalk.red("couldn't find a task with this id"));
     }
-    
+
 }
 
 export { completeTask }
