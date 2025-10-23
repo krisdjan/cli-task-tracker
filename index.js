@@ -11,6 +11,8 @@ import readline from 'readline';
 import { addTask } from './commands/addTask.js';
 import { completeTask } from './commands/completeTask.js';
 import { listTasks } from './commands/listTasks.js';
+import { deleteTask } from './commands/deleteTask.js';
+import { updateTask } from './commands/updateTask.js';
 
 //Checks whether existing task file exist
 const taskFileExists = fs.existsSync('./data/data.json');
@@ -71,12 +73,28 @@ program
                         completeTask(task);
                     }
                     break;
+                case 'delete':
+                    if (args.length === 0) {
+                        console.log("example: delete <id>");
+                    } else {
+                        const task = args.join(' ');
+                        deleteTask(task);
+                    }
+                    break;
+                case 'update':
+                    if(args.length === 0) {
+                        console.log("example: update <id> <task description>");
+                    } else {
+                        const prompt = args.slice(1).join(' ');
+                        updateTask(parseInt(args[0]), prompt);
+                    }
+                    break;
                 case 'help':
                     console.log(`
 exit............................Exits the application
 list............................Lists all the available tasks
 add <task description>..........Adds a task to the list
-complete <id>...................Marks the task as complete
+update-status <id>...................Marks the task as complete
 update <id> <task description>..Overwrites the task with a new description
 delete <id>.....................Deletes the task  
                         `);
@@ -93,8 +111,6 @@ delete <id>.....................Deletes the task
             process.exit(0);
         });
     });
-
-
 
 program.parse(process.argv);
 

@@ -1,6 +1,6 @@
 import { fs } from "../index.js";
-const dataPath = "./data/data.json";
 import { chalk } from "../index.js";
+const dataPath = "./data/data.json";
 
 function listTasks() {
     let tasks = [];
@@ -14,11 +14,11 @@ function listTasks() {
 
     if(tasks.length > 0) {
         tasks.forEach(element => {
-            let output = chalk.blue(element.taskDescription) + ' ' + chalk.yellow(element.id);
+            let output = chalk.blue(element.taskDescription) + ' id: ' + chalk.yellow(element.id) + " status: ";
             if (element.status == true) {
-                output += chalk.green(" done");
+                output += chalk.green("done");
             } else {
-                output += chalk.red(" undone");
+                output += chalk.red("undone");
             }
             console.log(output);
         });
